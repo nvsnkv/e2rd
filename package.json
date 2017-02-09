@@ -13,5 +13,16 @@
     "react"
   ],
   "author": "nvsnkv",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nvsnkv/e2rd.git"
+  },
+  "devDependencies": {
+    "html-webpack-plugin": "^2.28.0",
+    "ts-loader": "^2.0.0",
+    "typescript": "^2.1.6",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.3.0"
+  }
 }

@@ -1,18 +1,32 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 module.exports = {
-    entry: './src/app.tsx',
-        output: {
+    entry: './src/bootstrapper.ts',
+    output: {
         filename: 'e2rd.js',
-        path: __dirname + '/dist/'
+        path: __dirname + '/dist/',
+        library: 'e2rd',
+        libraryTarget: "var"
     },
     module: {
         rules: [
             {
-            test: /\.tsx?$/,
-            loader: 'ts-loader',
-            exclude: /node_modules/,
+                test: /\.tsx?$/,
+                loader: 'ts-loader',
+                exclude: /node_modules/,
             },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            },
+            {
+               test:/\.(eot|woff2?|ttf)$/,
+               use: ['file-loader']
+            },
+            {
+                test: /\.(png|svg)$/,
+                use: ['file-loader'],
+            }
         ]
     },
     resolve: {
@@ -20,7 +34,7 @@ module.exports = {
     },
 
     plugins: [
-        new HtmlWebpackPlugin({ title: 'e2rd demo' }),
+        new HtmlWebpackPlugin({ inject: 'head', template: './src/demo.html' }),
         new webpack.HotModuleReplacementPlugin()
     ],
     devServer: { 

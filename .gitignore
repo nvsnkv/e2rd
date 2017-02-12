@@ -1,4 +1,5 @@
-.vscode
-dist
-node_modules
+/.vscode
+/dist
+/node_modules
 npm_debug.log
+/typings

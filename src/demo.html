@@ -2,11 +2,13 @@
 <head>
     <title>Э2РД | demo page</title>
 </head>
-<body>
-    <div id="e2rd"></div>
+<body style="margin: 5px auto">
+    <div class="container" style="width: 80%; height: 80%">
+        <div id="e2rd"></div>
+    </div>
     <script>
         var container = document.getElementById('e2rd');
-        e2rd.CreateCropper({width: 640, height: 480}, container);
+        e2rd.CreateCropper({ }, container);
     </script>
 </body>
 </html>

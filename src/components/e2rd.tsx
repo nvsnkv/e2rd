@@ -1,11 +1,10 @@
 import './e2rd.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import * as React from 'react';
-import { Panel, Row, Col } from 'react-bootstrap';
+import { Panel, Modal, Button } from 'react-bootstrap';
 
 export interface E2RDProps {
-    width: number,
-    height: number
+    ImageLoaded: boolean;
 }
 
 export class E2RD extends React.Component<E2RDProps,void> {
@@ -14,16 +13,15 @@ export class E2RD extends React.Component<E2RDProps,void> {
     }
 
     render(): JSX.Element {
-        return <Panel style={this.GetStyle()} className="workbench">
-
+        return <Panel className="workbench modal-container">
+            <Modal.Dialog>
+                <Modal.Body>
+                    <Button bsSize="large" bsStyle="primary" block>
+                        Load new image
+                    </Button>
+                </Modal.Body>
+            </Modal.Dialog>
         </Panel>
-    }
-
-    private GetStyle(): React.CSSProperties {
-        return {
-            width: this.props.width + 'px',
-            height: this.props.height + 'px'
-        }
     }
 }
 

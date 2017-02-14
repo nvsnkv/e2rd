@@ -1,21 +1,21 @@
 import { ImageOptions } from '../../domain/imageOptions'
-import { ImageAction, ActionType } from '../actions/imageActions'
-import { Action } from 'redux'
-import { assign } from 'lodash'
+import { ImageAction } from '../actions/imageActions'
+import { Action, handleActions } from 'redux-actions'
+                             // Some of ImageActions has no payload, some - base64 string.
+                             //                             |
+                             //                             V
+export const ImageReducer = handleActions<ImageOptions, string|void>({
+    // 
+    //    toString(): "an index signature must be string or number". Dura lex, sed lex
+    //                          |
+    //                          V
+    [ImageAction.SetLoading.toString()]: (state, action) => new ImageOptions(state.Image, true),
+    [ImageAction.ResetLoading.toString()]: (state, action) => new ImageOptions(state.Image, false),
+    //
+    // Action<string>: UpdateImage: ReduxActions.ActionFunctionAny<Action<string>>, but compiler can't derive presice type of action
+    //                                                    |
+    //                                                    V
+    [ImageAction.UpdateImage.toString()]: (state, action:Action<string>) => new ImageOptions(action.payload, state.Loading),
+    [ImageAction.ResetImage.toString()]: (state, action) => new ImageOptions(null, state.Loading),
 
-export function ImageReducer(state: ImageOptions = new ImageOptions(null, false), action: ImageAction) {
-    if (action) {
-        switch(action.type) {
-            case ActionType.Clear:
-                return assign(state, { Image: null, Loading: false });
-
-            case ActionType.SetLoading:
-                return assign( state, {Loading: true});
-
-            case ActionType.Update:
-                return assign(state, {Image: action.data, Loading: false});
-
-            default: return state;
-        }
-    }
-}
+}, new ImageOptions(null, false))

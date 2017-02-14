@@ -1,7 +1,7 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 module.exports = {
-    entry: './src/bootstrapper.ts',
+    entry: './src/bootstrapper.tsx',
     output: {
         filename: 'e2rd.js',
         path: __dirname + '/dist/',

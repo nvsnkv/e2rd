@@ -1,12 +1,9 @@
-import { Action } from 'redux';
+import { createAction } from 'redux-actions';
 
-export class ActionType {
-    static readonly Clear = "Image.Clear";
-    static readonly SetLoading = "Image.SetLoading";
-    static readonly Update = "Image.Update";
+export const ImageAction = {
+    SetLoading: createAction<void>("Image.SetLoading"),
+    ResetLoading: createAction<void>("Image.ResetLoading"),
+    UpdateImage: createAction<string>("Image.Update"),
+    ResetImage: createAction<void>("Image.Reset")
 }
 
-export interface ImageAction extends Action {
-    type: ActionType;
-    data?: string;
-}

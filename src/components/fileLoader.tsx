@@ -30,6 +30,8 @@ export class FileLoader extends React.Component<FileLoaderProps, void> {
     }
 
     private setReference(input: HTMLInputElement){
+        if (!input) return; // <- it can be null during ui updates
+
         this.fileInput = input;
         this.fileInput.onchange = (ev: Event) =>  {
             const input = ev.target as HTMLInputElement;

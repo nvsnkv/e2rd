@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "react-bootstrap": "registry:dt/react-bootstrap#0.0.0+20170214015059"
+  }
+}

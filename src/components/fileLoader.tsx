@@ -38,7 +38,9 @@ export class FileLoader extends React.Component<FileLoaderProps, void> {
             if (file) {
                 const promise = new Promise((resolve, reject) => {
                     const reader = new FileReader();
-                    reader.onload = (data) => resolve(data);
+                    reader.onloadend = (data) => {
+                        resolve(reader.result);
+                    }
                     reader.onerror =(e) => reject(e);
                     reader.readAsDataURL(file);
                 });

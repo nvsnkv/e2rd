@@ -1,18 +1,9 @@
 import { ImageOptions } from '../../domain/imageOptions'
-import { ImageAction } from '../actions/imageActions'
-import { Action, handleActions } from 'redux-actions'
-                             // Some of ImageActions has no payload, some - base64 string.
-                             //                             |
-                             //                             V
-export const ImageReducer = handleActions<ImageOptions, string|void>({
-    // 
-    //    toString(): "an index signature must be string or number". Dura lex, sed lex
-    //                          |
-    //                          V
-    //
-    // Action<string>: UpdateImage: ReduxActions.ActionFunctionAny<Action<string>>, but compiler can't derive presice type of action
-    //                                                    |
-    //                                                    V
-    [ImageAction.Update.toString()]: (state, action:Action<string>) => new ImageOptions(action.payload, state.Loading)
-
-}, new ImageOptions(null, false))
+import { UpdateImage } from '../actions/imageActions'
+import { Action, handleAction, Reducer, ActionFunctions } from 'redux-actions'
+                
+const reducer = (state: ImageOptions, action:Action<string>) => {
+    return new ImageOptions(action.payload, false);
+};
+                
+export const ImageReducer = handleAction<ImageOptions,string>('UpdateImage', reducer, new ImageOptions(null, false));

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux'
 
 import { ImageOptions } from '../domain/imageOptions'
-import { ImageAction } from '../store/actions/imageActions'
+import { UpdateImage } from '../store/actions/imageActions'
 import { FileLoader } from './fileLoader'
 
 export interface CropperProps {
@@ -25,6 +25,6 @@ export function Cropper (props: CropperProps): JSX.Element {
 export const CropperContainer = connect((state: {Image: ImageOptions}) => ({
     Image: state.Image
 }),(dispatch) => ({
-    FileSelected: (file: Promise<string>) => dispatch(ImageAction.Update(file))
+    FileSelected: (file: Promise<string>) => dispatch(UpdateImage(file))
 }))(Cropper);
 

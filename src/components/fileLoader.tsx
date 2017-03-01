@@ -4,9 +4,7 @@ import { Modal, Button, ButtonProps } from 'react-bootstrap';
 import { head } from 'lodash';
 
 export interface FileLoaderProps {
-    onFileSelected?: () => void;
-    onFileLoaded: (data: string) => void;
-    errorOccured?: () => void;
+    onFileSelected: (file: Promise<string>) =>  void;
 }
 
 export class FileLoader extends React.Component<FileLoaderProps, void> {
@@ -36,20 +34,16 @@ export class FileLoader extends React.Component<FileLoaderProps, void> {
         this.fileInput.onchange = (ev: Event) =>  {
             const input = ev.target as HTMLInputElement;
             const file = head(input.files);
-            if (file){
-                if (this.props.onFileSelected) {
-                    this.props.onFileSelected();
-                }
-                const reader = new FileReader();
-                reader.onload = (ev: Event) => {
-                    this.props.onFileLoaded(reader.result);
-                }
-                reader.onerror = reader.onabort = (ev: Event) => {
-                    if (this.props.errorOccured) {
-                        this.props.errorOccured();
-                    }
-                }
-                reader.readAsDataURL(file);
+            
+            if (file) {
+                const promise = new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = (data) => resolve(data);
+                    reader.onerror =(e) => reject(e);
+                    reader.readAsDataURL(file);
+                });
+
+                this.props.onFileSelected(promise);
             }
         }
     }

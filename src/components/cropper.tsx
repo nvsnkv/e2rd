@@ -11,14 +11,12 @@ import { FileLoader } from './fileLoader'
 
 export interface CropperProps {
     Image: ImageOptions;
-    FileLoaded: (data: string) => void;
-    FileSelected: () => void
-    ErrorOccured: () => void
+    FileSelected: (file: Promise<string>) => void
 }
 
 export function Cropper (props: CropperProps): JSX.Element {
     return <Panel className="workbench modal-container">
-                    {!props.Image.Image && <FileLoader onFileLoaded={props.FileLoaded} onFileSelected={props.FileSelected}/>}
+                    {!props.Image.Image && <FileLoader onFileSelected={props.FileSelected}/>}
                     {props.Image.Image && <img src={props.Image.Image} />}
     </Panel>
 }
@@ -27,14 +25,6 @@ export function Cropper (props: CropperProps): JSX.Element {
 export const CropperContainer = connect((state: {Image: ImageOptions}) => ({
     Image: state.Image
 }),(dispatch) => ({
-    FileSelected: () => dispatch(ImageAction.SetLoading()),
-    FileLoaded: (data: string) => {
-        dispatch(ImageAction.UpdateImage(data)); 
-        dispatch(ImageAction.ResetLoading()); 
-    },
-    ErrorOccured: () => {
-        dispatch(ImageAction.ResetImage());
-        dispatch(ImageAction.ResetLoading());
-    }
+    FileSelected: (file: Promise<string>) => dispatch(ImageAction.Update(file))
 }))(Cropper);
 

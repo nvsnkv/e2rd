@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "../dist/",
+    "lib": ["dom", "es2015.promise", "es5"],
     "sourceMap": true,
     "noImplicitAny": true,
     "module": "commonjs",
